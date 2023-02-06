@@ -12,7 +12,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE: answerdev/answer
+  IMAGE: aiworklab/actiondev
 
 jobs:
   build:
@@ -49,7 +49,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: answerdev/answer
+        images: aichy66/actiondev
         tags: |
               type=raw,value=latest
               # branch event
