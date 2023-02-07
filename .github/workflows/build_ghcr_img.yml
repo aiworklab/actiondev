@@ -1,4 +1,4 @@
-name: Build Docker Hub Image
+name: Build GitHub ghcr.io Image
 
 on:
   push:

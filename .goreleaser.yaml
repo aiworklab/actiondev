@@ -1,0 +1,72 @@
+env:
+  - GO11MODULE=on
+  - GO111MODULE=on
+  - GOPROXY=https://goproxy.io
+  - CGO_ENABLED=0
+
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - id: build-amd64
+    main: .
+    binary: actiondev
+    ldflags: -s -w -X main.Version={{.Version}} -X main.Revision={{.ShortCommit}} -X main.Time={{.Date}} -X main.BuildUser=goreleaser
+    goos:
+      - linux
+    goarch:
+      - amd64
+  - id: build-windows
+    main: .
+    binary: actiondev
+    ldflags: -s -w -X main.Version={{.Version}} -X main.Revision={{.ShortCommit}} -X main.Time={{.Date}} -X main.BuildUser=goreleaser
+    goos:
+      - windows
+    goarch:
+      - amd64
+  - id: build-arm64
+    main: .
+    binary: actiondev
+    ldflags: -s -w -X main.Version={{.Version}} -X main.Revision={{.ShortCommit}} -X main.Time={{.Date}} -X main.BuildUser=goreleaser
+    goos:
+      - linux
+    goarch:
+      - arm64
+  - id: build-darwin-arm64
+    main: .
+    binary: actiondev
+    goos:
+      - darwin
+    goarch:
+      - arm64
+    ldflags: -s -w -X main.Version={{.Version}} -X main.Revision={{.ShortCommit}} -X main.Time={{.Date}} -X main.BuildUser=goreleaser
+    flags: -v
+  - id: build-darwin-amd64
+    main: .
+    binary: actiondev
+    goos:
+      - darwin
+    goarch:
+      - amd64
+    ldflags: -s -w -X main.Version={{.Version}} -X main.Revision={{.ShortCommit}} -X main.Time={{.Date}} -X main.BuildUser=goreleaser
+    flags: -v
+
+
+archives:
+  - replacements:
+      darwin: macOS
+      amd64: x86_64
+      linux: Linux
+      windows: Windows
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+# goreleaser release --snapshot --rm-dist
