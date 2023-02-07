@@ -3,10 +3,10 @@ name: Build Docker Hub Image
 on:
   push:
     branches: [ "githubaction" ]
-    tags:
-      - v2.*
-      - v1.*
-      - v0.*
+    # tags:
+    #   - v2.*
+    #   - v1.*
+    #   - v0.*
   # pull_request:
   #   branches: [ "main" ]
 
