@@ -1,4 +1,4 @@
-name: Build DockerHub Image
+name: Build Cache Image
 
 on:
   push:
