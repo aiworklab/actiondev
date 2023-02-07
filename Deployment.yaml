@@ -19,7 +19,7 @@ spec:
           path: /var/run/docker.sock
       - name: workdir
         hostPath:
-          path: /tmp/github-runner-aiworklab
+          path: /tmp/runner/work_{{.Task.Slot}}
       containers:
       - name: runner
         image: registry.cn-hangzhou.aliyuncs.com/aigitlab/github-runner:latest
@@ -37,9 +37,9 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: RUNNER_WORKDIR
-          value: /tmp/github-runner-aiworklab
+          value: /tmp/runner/work_{{.Task.Slot}}
         volumeMounts:
         - name: dockersock
           mountPath: /var/run/docker.sock
         - name: workdir
-          mountPath: /tmp/github-runner-aiworklab
+          mountPath: /tmp/runner/work_{{.Task.Slot}}
