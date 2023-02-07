@@ -3,10 +3,8 @@ name: Build Docker Hub Image
 on:
   push:
     branches: [ "githubaction" ]
-    # tags:
-    #   - v2.*
-    #   - v1.*
-    #   - v0.*
+    tags:
+      - "v*.*.*"
   # pull_request:
   #   branches: [ "main" ]
 
@@ -20,6 +18,20 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          name/app
+          ghcr.io/username/app
+        # generate Docker tags based on the following events/attributes
+        tags: |
+          type=raw,value=latest
+          type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
+          type=semver,pattern={{version}}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -41,7 +53,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build amd64
+    - name: Build and push
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -53,15 +65,6 @@ jobs:
           ghcr.io/user/app:latest
           ghcr.io/user/app:1.0.0
 
-    # - name: Build arm64
-    #   uses: docker/build-push-action@v4
-    #   with:
-    #     context: .
-    #     file: ./Dockerfile
-    #     platforms: linux/arm64
-    #     push: true
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
 
     # - name: Push image to GHCR
     #   run: |
