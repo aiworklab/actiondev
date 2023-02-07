@@ -28,7 +28,7 @@ func (s *Api) Ping(c *gin.Context) {
 	now := time.Now().Format("2006.01.02 03:04:05")
 	utils.UpdateSystemStatus()
 	c.JSON(200, gin.H{
-		"message":    "pong!",
+		"message":    "pong!!",
 		"date":       now,
 		"sys_status": utils.SysStatus,
 	})
