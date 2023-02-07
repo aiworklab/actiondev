@@ -52,11 +52,9 @@ jobs:
         images: aichy66/actiondev
         tags: |
               type=raw,value=latest
-              # branch event
               type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
-              # tag event
-              #type=ref,enable=true,priority=600,prefix=,suffix=,event=tag
               type=semver,pattern={{version}}
+
     - name: Build amd64
       uses: docker/build-push-action@v4
       with:
@@ -64,7 +62,6 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
 
     # - name: Build arm64
     #   uses: docker/build-push-action@v4
