@@ -23,11 +23,9 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        # list of Docker images to use as base name for tags
         images: |
-          name/app
-          ghcr.io/username/app
-        # generate Docker tags based on the following events/attributes
+          aichy66/actiondev
+          ghcr.io/aiworklab/actiondev
         tags: |
           type=raw,value=latest
           type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
