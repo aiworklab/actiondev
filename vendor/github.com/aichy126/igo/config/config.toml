@@ -1,0 +1,17 @@
+[local]
+address = ":8091"
+debug = true
+
+[local.logger]
+dir = "./logs"
+name = "log.log"
+access = true
+level = "INFO"
+max_size = 1
+max_backups = 5
+max_age = 7
+
+
+[config]
+address = "xxx"
+key ="/xxx/xxx"

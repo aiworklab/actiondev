@@ -9,10 +9,8 @@
 /.fleet
 /.vscode/*.log
 /logs
-/vendor
 Thumbs*.db
 tmp
-vendor/
 
 
 dist/
