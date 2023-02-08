@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    name: Build and Push
     runs-on: [self-hosted, ailab]
     steps:
     - name: Checkout
@@ -48,4 +49,20 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+  sync-git:
+    name: Sync to Git
+    needs:
+      - build
+    steps:
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
+          SSH_PRIVATE_KEY: ${{ secrets.GITLAB_RSA_PRIVATE_KEY }}
+        with:
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: git@github.com:aiworklab/actiondev.git
+          # 注意替换为你的 Git 目标仓库地址
+          destination-repo: ${{ secrets.GITLAB_REPO }}
 
