@@ -52,6 +52,7 @@ jobs:
 
   sync-git:
     name: Sync to Git
+    runs-on: [self-hosted, ailab]
     needs:
       - build
     steps:
