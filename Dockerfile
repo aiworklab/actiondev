@@ -1,4 +1,4 @@
-FROM golang:1.18 AS builder
+FROM registry.cn-hangzhou.aliyuncs.com/aigitlab/golang:1.18 AS builder
 LABEL maintainer="aichy"
 
 # 设置时区环境变量
@@ -18,7 +18,7 @@ RUN mkdir /data
 RUN cp main /data/
 RUN cp config.toml /data/
 
-FROM alpine:latest
+FROM registry.cn-hangzhou.aliyuncs.com/aigitlab/alpine:latest
 ENV TZ "Asia/Shanghai"
 
 COPY --from=builder /data/ /data/
